@@ -1,0 +1,4 @@
+node_modules
+.fuse*
+.bower*
+public/lib

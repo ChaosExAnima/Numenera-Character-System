@@ -1,0 +1,554 @@
+color-background = rgba(255, 255, 255, 0.7)
+color-glow = rgb(0, 0, 200)
+color-text = rgb(21, 21, 21)
+color-black-alpha = rgba(0, 0, 0, 0.5)
+
+font-header = 'Radley', serif
+
+/**
+ * Mixins
+ */
+white-container(r = 10px, shadow = true)
+	background-color white
+	background-color color-background
+	border 1px solid black
+	border-radius r
+	if shaow
+		box-shadow 0 0 2px color-black-alpha inset
+
+white-dot(size = 10px)
+	white-container(10px, false)
+	content ''
+	width size
+	height size
+	position absolute
+	top 50%
+	margin-top (size/-2)
+
+white-dot-both(offset = -15px, size = 10px)
+	position relative
+
+	&::before
+	&::after
+		white-dot(size)
+
+	&::before
+		left offset
+
+	&::after
+		right offset
+
+number-box-resize(width = 70%)
+	label
+		width width
+
+	input
+		width "calc(%s - 5px)" % (100% - width)
+
+/**
+ * All Pages
+ */
+body
+	padding-top 70px
+
+.page-1
+.page-2
+.page-3
+	background-color black
+	background-size auto 100%
+	background-repeat no-repeat
+	position relative
+	overflow hidden
+	display none
+
+	@media (min-width: 1200px)
+		background-size 100% auto
+
+	&.active
+		display block
+
+	& > div
+		display flex
+		flex-direction column
+		height 640px
+
+	fieldset
+		white-container()
+		margin 20px 0 0
+		padding 20px
+		flex-basis 100%
+		position relative
+
+		&:last-child
+			margin-bottom 20px
+
+		&.floating
+			padding 20px 0 0
+			margin-bottom 0
+			box-shadow none
+			background none
+			border none
+
+		&.lines
+			input
+				box-sizing border-box
+				border-bottom 1px solid black
+
+		ul
+			padding 0
+			list-style-type none
+
+	legend
+	input
+	textarea
+	span
+		color color-text
+
+	legend
+		text-align center
+		width inherit
+		min-width 120px
+		background white
+		padding 0 10px
+		border-radius 20px
+		border 1px solid black
+		margin 0
+		box-shadow 0 2px 2px color-black-alpha
+		font 400 18px font-header
+		text-transform uppercase
+		position relative
+
+		&::before
+		&::after
+			white-dot()
+			background white
+
+		&::before
+			left -15px
+
+		&::after
+			right -15px
+
+	input
+	textarea
+		border none
+		outline none
+		background none
+		resize none
+		transition .5s all
+		font-size 12px
+		display block
+		padding 0
+		margin 0
+		width 100%
+
+		&:focus
+			box-shadow 0 0 10px color-glow
+			color color-glow
+
+	label
+		font-weight normal
+
+/**
+ * Page 1
+ */
+.page-1
+	background-image url(/img/page-1.jpg)
+	
+	fieldset.personality
+		flex-basis 250px
+
+	fieldset.character
+		flex-basis 310px
+
+		input
+			font 400 18px font-header
+
+		span
+			clear left
+			display block
+			padding 5px 10px
+			font-family font-header
+
+	.descriptor
+	.type
+		width 50%
+		float left
+
+	fieldset.portrait
+		background-size 100% auto
+		background-position 50% 50%
+
+/**
+ * Page 2
+ */
+.page-2
+	background-image url(/img/page-2.jpg)
+
+	fieldset.skills
+		li
+			margin-bottom 3px
+			padding-left 20px
+			position relative
+			overflow auto
+
+			&::before
+				white-dot()
+				left 5px
+
+		input[type=text],
+		li > span
+			white-container()
+			float left
+
+		input[type=text]
+			padding 3px 10px
+			width 85%
+			clear both
+
+		li > span
+			display block
+			width 15px
+			height 15px
+			margin-left 3px
+			overflow hidden
+			position relative
+
+			label
+				width 13px
+				height @width
+				text-align center
+				line-height @width
+				font-size 10px
+				margin 0
+				absolute top 0 left 0
+				transition 0.5s all
+
+			input
+				opacity 0
+				absolute top 0 left 0
+				z-index 10
+				cursor pointer
+
+			input:checked + label
+				background color-glow
+				color white
+
+		.specialized
+			margin-top 4px		
+
+	fieldset.stats
+		padding 0
+
+		& > .tier
+		& > .effort
+			float left
+			width 50%
+			margin 0 0 25px
+
+			input
+			label
+				float none
+				height auto
+				border-radius 10px
+				margin 0 auto
+				display block
+
+			input
+				font-size 30px
+				width 30%
+
+			label
+				text-align center
+				font-size 16px
+				white-dot-both()
+				background white
+
+				&::before
+				&::after
+					background white
+
+		& > .pool
+			clear both
+			position relative
+			overflow overlay
+			margin 5px 0 0
+
+			.total
+				width 50%
+				overflow overlay
+				margin 10px 0
+				number-box-resize(50%)
+
+				input
+					padding-right 30px
+
+			.pool
+			.edge
+				position absolute
+
+				label
+				input
+					font-size 10px
+
+				label
+					background white
+
+			.pool
+				top 0
+				right 0
+				width 55%
+				number-box-resize(30%)
+
+				input
+					text-align left
+
+			.edge
+				bottom 0
+				left 40%
+				width 25%
+				number-box-resize(50%)
+
+				&::after
+					white-dot()
+					right -15px
+
+		.health
+			margin-top 30px
+			overflow overlay
+			position relative
+
+		.damage
+		div.recovery
+			float left
+			width 60%
+
+		div.damage
+			position relative
+
+			& > label
+				white-container(8px)
+				padding 3px 15px
+				text-transform uppercase
+				font-family font-header
+				margin 10px 0
+				background white
+
+			& > span
+				width 50%
+				overflow overlay
+				position absolute
+				right 0
+
+				label
+					width calc(100% - 20px)
+					text-align center
+
+			.impaired
+				top 0
+
+			.debilitated
+				bottom 0
+
+		div.recovery
+			margin-top 14px
+			number-box-resize(60%)
+
+			label
+				text-align center
+
+		.uses
+			absolute right 0 top 0
+			width 30%
+
+			span
+				margin 1px 0
+
+			label
+				text-align right
+
+		div.attacks
+			margin-top 20px
+
+			& > label
+				white-container(8px)
+				padding 0 10px
+				text-transform uppercase
+				font-family font-header
+				position relative
+				float left
+				background white
+
+				&::after
+					white-dot()
+					right -15px
+					background white
+
+			.armor
+				float right
+				width 40%
+				position relative
+
+				&::before
+					white-dot()
+					left -15px
+
+			li
+				overflow overlay
+				clear both
+				padding-left 25px
+
+				input
+					white-container(8px)
+					padding 2px 5px
+					float left
+
+				.name
+					width 60%
+					margin-left 0
+					border-top-right-radius 0
+					border-bottom-right-radius 0
+
+				.mod
+				.damage
+					width calc(20% - 5px)
+					margin-left 5px
+					text-align center
+					-webkit-appearance none
+
+				.mod
+					border-radius 0
+
+				.damage
+					border-top-left-radius 0
+					border-bottom-left-radius 0
+
+		div.experience
+			margin-top 20px
+			overflow overlay
+
+			.total
+				width 50%
+				float left
+
+			.check-box
+				width 50%
+				margin 2px 0 2px 50%
+
+	fieldset.cyphers
+		div.cypherLimit
+			width 30%
+			position relative
+			float right
+			bottom -8px
+			number-box-resize(60%)
+
+			label
+			input
+				background white
+
+			label
+				text-align center
+
+			&::before
+				white-dot()
+				left -15px
+				background white
+
+
+/**
+ * Page 3
+ */
+.page-3
+	background-image url(/img/page-3.jpg)
+
+	fieldset.experience
+		input
+			float left
+			height 20px
+
+		.date
+			width calc(35% - 5px)
+			margin-right 5px
+
+		.num
+			width calc(15% - 5px)
+			margin-right 5px
+			text-align right
+
+		.notes
+			width 50%
+
+		.experience
+			width 30%
+			float right
+			number-box-resize(70%)
+			margin-top 8px
+
+			input
+			label
+				height 20px
+				text-align center
+			
+
+/**
+ * Utilities
+ */
+.number-box
+.check-box
+	display block
+
+	label
+		margin 0
+		font-family font-header
+		display block
+		text-transform uppercase
+
+.number-box
+	label
+	input
+		white-container(8px)
+		float left
+		padding 2px 5px
+		box-sizing border-box
+		font-size 12px
+
+	label
+		width 70%
+		margin 0
+		border-top-right-radius 0
+		border-bottom-right-radius 0
+
+	input
+		width calc(30% - 5px)
+		border-top-left-radius 0
+		border-bottom-left-radius 0
+		margin-left 5px
+		text-align center
+
+.check-box
+	label
+		white-container(5px)
+		padding 2px 5px
+		position relative
+		margin-left 20px
+		font-size 10px
+
+		&::before
+			content ''
+			display block
+			absolute left -15px top 50%
+			width 10px
+			height @width
+			margin-top (@width/-2)
+			background white
+			background color-background
+			border 1px solid black
+			transition .5s background-color
+
+	input
+		display none
+
+	input:checked + label
+		&::before
+			background-color color-glow

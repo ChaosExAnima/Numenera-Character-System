@@ -1,0 +1,112 @@
+[{
+	"player": "Emily",
+
+	"name": "Benthre",
+	"descriptor": "Charming",
+	"type": "Jack",
+	"focus": "Fuses Flesh and Steel",
+
+	"portrait": "",
+	"background": "You remember little of your past, which has always seemed strange to you. You are secretive about your partially mechanical nature and use your natural charm to convince others that you are nothing more than you appear. Thus, your components are hidden from everyone except Leve who recently discovered your secret.\n\nYour group's current mission to explore the wilderness was instigated by you. You fancy yourself the group's leader.",
+	"personality": "Charming yet headstrong, Benthre leads the party through both friendship and toughness.",
+	"notes": "",
+
+	"tier": 2,
+	"effort": 2,
+
+	"might": {
+		"total": 15,
+		"pool": 15,
+		"edge": 1
+	},
+	"speed": {
+		"total": 15,
+		"pool": 15,
+		"edge": 1
+	},
+	"intellect": {
+		"total": 14,
+		"pool": 14
+	},
+
+	"skills": [
+		{
+			"name": "Jumping",
+			"trained": true,
+			"specialized": false
+		},
+		{
+			"name": "Social Interaction",
+			"trained": false,
+			"specialized": true
+		},
+		{
+			"name": "Detect Falsehood",
+			"trained": true,
+			"specialized": false
+		}
+	],
+
+	"specialAbilities": [
+		"Flex Skill",
+		"Practiced in Armor",
+		"Bash (Costs 1 Might Point)",
+		"Influential Contact",
+		"*Needs special healing",
+		"*Inability: Lore, Knowledge, Resisting Mental Attacks",
+		"Skill with Defense (Speed)",
+		"No Need for Weapons",
+		"Interface"
+	],
+
+	"impaired": false,
+	"debilitated": false,
+
+	"recovery": {
+		"roll": 2
+	},
+
+	"armor": 3,
+
+	"attacks": [
+		{
+			"name": "Mace",
+			"mod": 0,
+			"damage": 4
+		},
+		{
+			"name": "Razor Ring",
+			"mod": 1,
+			"damage": 2
+		}
+	],
+
+	"experience": {
+		"total": 9
+	},
+
+	"cyphers": [
+		"Crystal Shards / 3 - Restores 3 Intelligence"
+	],
+	"cypherLimit": 2,
+
+	"artifacts": [],
+
+	"oddities": [
+		"Crystal that shatters easily but instantly reforms.",
+		"Cone of synth that creates a light breeze.",
+		"Dull synth orb."
+	],
+
+	"equipment": [
+		"Clothing / Brigandine",
+		"Mace",
+		"Razor Ring",
+		"Explorer's Pack",
+		"Pack of Light Tools & Spare Parts",
+		"Assorted Maps",
+		"Pretty Ass Quail Feathers"
+	],
+
+	"shins": 24
+}]

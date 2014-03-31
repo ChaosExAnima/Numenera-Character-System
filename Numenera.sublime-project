@@ -1,0 +1,24 @@
+{
+	"folders":
+	[
+		{
+			"name": "App",
+			"follow_symlinks": true,
+			"path": "./app",
+			"file_exclude_patterns": [".fuse_*"]
+		},
+		{
+			"name": "Public",
+			"follow_symlinks": true,
+			"path": "./public",
+			"file_exclude_patterns": [".fuse_*"]
+		},
+		{
+			"name": "Root",
+			"follow_symlinks": true,
+			"path": ".",
+			"folder_exclude_patterns": ["app", "public", ".bower-*"],
+			"file_exclude_patterns": [".fuse_*"]
+		}
+	]
+}

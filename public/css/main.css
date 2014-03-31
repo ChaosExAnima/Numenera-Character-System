@@ -1,0 +1,780 @@
+/**
+ * Mixins
+ */
+/**
+ * All Pages
+ */
+body {
+  padding-top: 70px;
+}
+.page-1,
+.page-2,
+.page-3 {
+  background-color: #000;
+  -webkit-background-size: auto 100%;
+  -moz-background-size: auto 100%;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  display: none;
+}
+@media (min-width: 1200px) {
+  .page-1,
+  .page-2,
+  .page-3 {
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    background-size: 100% auto;
+  }
+}
+.page-1.active,
+.page-2.active,
+.page-3.active {
+  display: block;
+}
+.page-1 > div,
+.page-2 > div,
+.page-3 > div {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 640px;
+}
+.page-1 fieldset,
+.page-2 fieldset,
+.page-3 fieldset {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  margin: 20px 0 0;
+  padding: 20px;
+  -webkit-flex-basis: 100%;
+  flex-basis: 100%;
+  position: relative;
+}
+.page-1 fieldset:last-child,
+.page-2 fieldset:last-child,
+.page-3 fieldset:last-child {
+  margin-bottom: 20px;
+}
+.page-1 fieldset.floating,
+.page-2 fieldset.floating,
+.page-3 fieldset.floating {
+  padding: 20px 0 0;
+  margin-bottom: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: none;
+  border: none;
+}
+.page-1 fieldset.lines input,
+.page-2 fieldset.lines input,
+.page-3 fieldset.lines input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #000;
+}
+.page-1 fieldset ul,
+.page-2 fieldset ul,
+.page-3 fieldset ul {
+  padding: 0;
+  list-style-type: none;
+}
+.page-1 legend,
+.page-2 legend,
+.page-3 legend,
+.page-1 input,
+.page-2 input,
+.page-3 input,
+.page-1 textarea,
+.page-2 textarea,
+.page-3 textarea,
+.page-1 span,
+.page-2 span,
+.page-3 span {
+  color: #151515;
+}
+.page-1 legend,
+.page-2 legend,
+.page-3 legend {
+  text-align: center;
+  width: inherit;
+  min-width: 120px;
+  background: #fff;
+  padding: 0 10px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  border: 1px solid #000;
+  margin: 0;
+  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+  font: 400 18px 'Radley', serif;
+  text-transform: uppercase;
+  position: relative;
+}
+.page-1 legend::before,
+.page-2 legend::before,
+.page-3 legend::before,
+.page-1 legend::after,
+.page-2 legend::after,
+.page-3 legend::after {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  background: #fff;
+}
+.page-1 legend::before,
+.page-2 legend::before,
+.page-3 legend::before {
+  left: -15px;
+}
+.page-1 legend::after,
+.page-2 legend::after,
+.page-3 legend::after {
+  right: -15px;
+}
+.page-1 input,
+.page-2 input,
+.page-3 input,
+.page-1 textarea,
+.page-2 textarea,
+.page-3 textarea {
+  border: none;
+  outline: none;
+  background: none;
+  resize: none;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  transition: 0.5s all;
+  font-size: 12px;
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.page-1 input:focus,
+.page-2 input:focus,
+.page-3 input:focus,
+.page-1 textarea:focus,
+.page-2 textarea:focus,
+.page-3 textarea:focus {
+  -webkit-box-shadow: 0 0 10px #0000c8;
+  box-shadow: 0 0 10px #0000c8;
+  color: #0000c8;
+}
+.page-1 label,
+.page-2 label,
+.page-3 label {
+  font-weight: normal;
+}
+/**
+ * Page 1
+ */
+.page-1 {
+  background-image: url("/img/page-1.jpg");
+}
+.page-1 fieldset.personality {
+  -webkit-flex-basis: 250px;
+  flex-basis: 250px;
+}
+.page-1 fieldset.character {
+  -webkit-flex-basis: 310px;
+  flex-basis: 310px;
+}
+.page-1 fieldset.character input {
+  font: 400 18px 'Radley', serif;
+}
+.page-1 fieldset.character span {
+  clear: left;
+  display: block;
+  padding: 5px 10px;
+  font-family: 'Radley', serif;
+}
+.page-1 .descriptor,
+.page-1 .type {
+  width: 50%;
+  float: left;
+}
+.page-1 fieldset.portrait {
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  background-size: 100% auto;
+  background-position: 50% 50%;
+}
+/**
+ * Page 2
+ */
+.page-2 {
+  background-image: url("/img/page-2.jpg");
+}
+.page-2 fieldset.skills li {
+  margin-bottom: 3px;
+  padding-left: 20px;
+  position: relative;
+  overflow: auto;
+}
+.page-2 fieldset.skills li::before {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  left: 5px;
+}
+.page-2 fieldset.skills input[type=text],
+.page-2 fieldset.skills li > span {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  float: left;
+}
+.page-2 fieldset.skills input[type=text] {
+  padding: 3px 10px;
+  width: 85%;
+  clear: both;
+}
+.page-2 fieldset.skills li > span {
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin-left: 3px;
+  overflow: hidden;
+  position: relative;
+}
+.page-2 fieldset.skills li > span label {
+  width: 13px;
+  height: 13px;
+  text-align: center;
+  line-height: 13px;
+  font-size: 10px;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  transition: 0.5s all;
+}
+.page-2 fieldset.skills li > span input {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+.page-2 fieldset.skills li > span input:checked + label {
+  background: #0000c8;
+  color: #fff;
+}
+.page-2 fieldset.skills .specialized {
+  margin-top: 4px;
+}
+.page-2 fieldset.stats {
+  padding: 0;
+}
+.page-2 fieldset.stats > .tier,
+.page-2 fieldset.stats > .effort {
+  float: left;
+  width: 50%;
+  margin: 0 0 25px;
+}
+.page-2 fieldset.stats > .tier input,
+.page-2 fieldset.stats > .effort input,
+.page-2 fieldset.stats > .tier label,
+.page-2 fieldset.stats > .effort label {
+  float: none;
+  height: auto;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0 auto;
+  display: block;
+}
+.page-2 fieldset.stats > .tier input,
+.page-2 fieldset.stats > .effort input {
+  font-size: 30px;
+  width: 30%;
+}
+.page-2 fieldset.stats > .tier label,
+.page-2 fieldset.stats > .effort label {
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+  background: #fff;
+}
+.page-2 fieldset.stats > .tier label::before,
+.page-2 fieldset.stats > .effort label::before,
+.page-2 fieldset.stats > .tier label::after,
+.page-2 fieldset.stats > .effort label::after {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+}
+.page-2 fieldset.stats > .tier label::before,
+.page-2 fieldset.stats > .effort label::before {
+  left: -15px;
+}
+.page-2 fieldset.stats > .tier label::after,
+.page-2 fieldset.stats > .effort label::after {
+  right: -15px;
+}
+.page-2 fieldset.stats > .tier label::before,
+.page-2 fieldset.stats > .effort label::before,
+.page-2 fieldset.stats > .tier label::after,
+.page-2 fieldset.stats > .effort label::after {
+  background: #fff;
+}
+.page-2 fieldset.stats > .pool {
+  clear: both;
+  position: relative;
+  overflow: overlay;
+  margin: 5px 0 0;
+}
+.page-2 fieldset.stats > .pool .total {
+  width: 50%;
+  overflow: overlay;
+  margin: 10px 0;
+}
+.page-2 fieldset.stats > .pool .total label {
+  width: 50%;
+}
+.page-2 fieldset.stats > .pool .total input {
+  width: calc(50% - 5px);
+}
+.page-2 fieldset.stats > .pool .total input {
+  padding-right: 30px;
+}
+.page-2 fieldset.stats > .pool .pool,
+.page-2 fieldset.stats > .pool .edge {
+  position: absolute;
+}
+.page-2 fieldset.stats > .pool .pool label,
+.page-2 fieldset.stats > .pool .edge label,
+.page-2 fieldset.stats > .pool .pool input,
+.page-2 fieldset.stats > .pool .edge input {
+  font-size: 10px;
+}
+.page-2 fieldset.stats > .pool .pool label,
+.page-2 fieldset.stats > .pool .edge label {
+  background: #fff;
+}
+.page-2 fieldset.stats > .pool .pool {
+  top: 0;
+  right: 0;
+  width: 55%;
+}
+.page-2 fieldset.stats > .pool .pool label {
+  width: 30%;
+}
+.page-2 fieldset.stats > .pool .pool input {
+  width: calc(70% - 5px);
+}
+.page-2 fieldset.stats > .pool .pool input {
+  text-align: left;
+}
+.page-2 fieldset.stats > .pool .edge {
+  bottom: 0;
+  left: 40%;
+  width: 25%;
+}
+.page-2 fieldset.stats > .pool .edge label {
+  width: 50%;
+}
+.page-2 fieldset.stats > .pool .edge input {
+  width: calc(50% - 5px);
+}
+.page-2 fieldset.stats > .pool .edge::after {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: -15px;
+}
+.page-2 fieldset.stats .health {
+  margin-top: 30px;
+  overflow: overlay;
+  position: relative;
+}
+.page-2 fieldset.stats .damage,
+.page-2 fieldset.stats div.recovery {
+  float: left;
+  width: 60%;
+}
+.page-2 fieldset.stats div.damage {
+  position: relative;
+}
+.page-2 fieldset.stats div.damage > label {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  padding: 3px 15px;
+  text-transform: uppercase;
+  font-family: 'Radley', serif;
+  margin: 10px 0;
+  background: #fff;
+}
+.page-2 fieldset.stats div.damage > span {
+  width: 50%;
+  overflow: overlay;
+  position: absolute;
+  right: 0;
+}
+.page-2 fieldset.stats div.damage > span label {
+  width: calc(100% - 20px);
+  text-align: center;
+}
+.page-2 fieldset.stats div.damage .impaired {
+  top: 0;
+}
+.page-2 fieldset.stats div.damage .debilitated {
+  bottom: 0;
+}
+.page-2 fieldset.stats div.recovery {
+  margin-top: 14px;
+}
+.page-2 fieldset.stats div.recovery label {
+  width: 60%;
+}
+.page-2 fieldset.stats div.recovery input {
+  width: calc(40% - 5px);
+}
+.page-2 fieldset.stats div.recovery label {
+  text-align: center;
+}
+.page-2 fieldset.stats .uses {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30%;
+}
+.page-2 fieldset.stats .uses span {
+  margin: 1px 0;
+}
+.page-2 fieldset.stats .uses label {
+  text-align: right;
+}
+.page-2 fieldset.stats div.attacks {
+  margin-top: 20px;
+}
+.page-2 fieldset.stats div.attacks > label {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  padding: 0 10px;
+  text-transform: uppercase;
+  font-family: 'Radley', serif;
+  position: relative;
+  float: left;
+  background: #fff;
+}
+.page-2 fieldset.stats div.attacks > label::after {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: -15px;
+  background: #fff;
+}
+.page-2 fieldset.stats div.attacks .armor {
+  float: right;
+  width: 40%;
+  position: relative;
+}
+.page-2 fieldset.stats div.attacks .armor::before {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  left: -15px;
+}
+.page-2 fieldset.stats div.attacks li {
+  overflow: overlay;
+  clear: both;
+  padding-left: 25px;
+}
+.page-2 fieldset.stats div.attacks li input {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  padding: 2px 5px;
+  float: left;
+}
+.page-2 fieldset.stats div.attacks li .name {
+  width: 60%;
+  margin-left: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.page-2 fieldset.stats div.attacks li .mod,
+.page-2 fieldset.stats div.attacks li .damage {
+  width: calc(20% - 5px);
+  margin-left: 5px;
+  text-align: center;
+  -webkit-appearance: none;
+}
+.page-2 fieldset.stats div.attacks li .mod {
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.page-2 fieldset.stats div.attacks li .damage {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.page-2 fieldset.stats div.experience {
+  margin-top: 20px;
+  overflow: overlay;
+}
+.page-2 fieldset.stats div.experience .total {
+  width: 50%;
+  float: left;
+}
+.page-2 fieldset.stats div.experience .check-box {
+  width: 50%;
+  margin: 2px 0 2px 50%;
+}
+.page-2 fieldset.cyphers div.cypherLimit {
+  width: 30%;
+  position: relative;
+  float: right;
+  bottom: -8px;
+}
+.page-2 fieldset.cyphers div.cypherLimit label {
+  width: 60%;
+}
+.page-2 fieldset.cyphers div.cypherLimit input {
+  width: calc(40% - 5px);
+}
+.page-2 fieldset.cyphers div.cypherLimit label,
+.page-2 fieldset.cyphers div.cypherLimit input {
+  background: #fff;
+}
+.page-2 fieldset.cyphers div.cypherLimit label {
+  text-align: center;
+}
+.page-2 fieldset.cyphers div.cypherLimit::before {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  content: '';
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  left: -15px;
+  background: #fff;
+}
+/**
+ * Page 3
+ */
+.page-3 {
+  background-image: url("/img/page-3.jpg");
+}
+.page-3 fieldset.experience input {
+  float: left;
+  height: 20px;
+}
+.page-3 fieldset.experience .date {
+  width: calc(35% - 5px);
+  margin-right: 5px;
+}
+.page-3 fieldset.experience .num {
+  width: calc(15% - 5px);
+  margin-right: 5px;
+  text-align: right;
+}
+.page-3 fieldset.experience .notes {
+  width: 50%;
+}
+.page-3 fieldset.experience .experience {
+  width: 30%;
+  float: right;
+  margin-top: 8px;
+}
+.page-3 fieldset.experience .experience label {
+  width: 70%;
+}
+.page-3 fieldset.experience .experience input {
+  width: calc(30% - 5px);
+}
+.page-3 fieldset.experience .experience input,
+.page-3 fieldset.experience .experience label {
+  height: 20px;
+  text-align: center;
+}
+/**
+ * Utilities
+ */
+.number-box,
+.check-box {
+  display: block;
+}
+.number-box label,
+.check-box label {
+  margin: 0;
+  font-family: 'Radley', serif;
+  display: block;
+  text-transform: uppercase;
+}
+.number-box label,
+.number-box input {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  float: left;
+  padding: 2px 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+.number-box label {
+  width: 70%;
+  margin: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.number-box input {
+  width: calc(30% - 5px);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: 5px;
+  text-align: center;
+}
+.check-box label {
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
+  padding: 2px 5px;
+  position: relative;
+  margin-left: 20px;
+  font-size: 10px;
+}
+.check-box label::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  background: #fff;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid #000;
+  -webkit-transition: 0.5s background-color;
+  -moz-transition: 0.5s background-color;
+  -o-transition: 0.5s background-color;
+  -ms-transition: 0.5s background-color;
+  transition: 0.5s background-color;
+}
+.check-box input {
+  display: none;
+}
+.check-box input:checked + label::before {
+  background-color: #0000c8;
+}

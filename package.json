@@ -1,0 +1,33 @@
+{
+  "name": "numenera-characters",
+  "description": "Numenera Character Tracker",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "nib": "*",
+    "async": "*",
+    "lodash": "*",
+    "connect-coffee-script": "*",
+    "mongoose": "*",
+    "express-form": "*",
+    "connect-flash": "*",
+    "grunt": "*",
+    "assetmanager": "*",
+    "socket.io": "~0.9.16"
+  },
+  "main": "server",
+  "devDependencies": {
+    "grunt-env": "~0.4.1",
+    "grunt-contrib-cssmin": "^0.9.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-csslint": "^0.2.0",
+    "grunt-contrib-jshint": "latest",
+    "grunt-karma": "~0.6.2",
+    "grunt-nodemon": "0.2.0",
+    "grunt-concurrent": "latest",
+    "grunt-shell": "latest"
+  }
+}

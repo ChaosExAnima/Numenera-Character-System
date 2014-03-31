@@ -1,0 +1,24 @@
+{
+  "name": "numenera",
+  "version": "0.0.1",
+  "authors": [
+    "Ephraim Gregor <ephraim@ephraimgregor.com>"
+  ],
+  "description": "Character Sheet Tracker for Numenera.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "latest",
+    "backbone": "latest",
+    "socket.io-client": "latest",
+    "backbone.iobind": "latest",
+    "backbone.modelbinder": "latest"
+  }
+}

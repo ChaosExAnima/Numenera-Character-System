@@ -1,0 +1,8 @@
+extends layouts/default
+
+block content
+	h1 Hi!
+	h4 Select your PC below:
+	ul
+		each pc in characters
+			li: a(href="/character/"+pc.name)= pc.name + ' (' + pc.player + ')'

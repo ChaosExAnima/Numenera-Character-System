@@ -1,0 +1,109 @@
+[{
+	"player": "AJ",
+
+	"name": "Leve",
+	"descriptor": "Strong-Willed",
+	"type": "Nano",
+	"focus": "Wields Power with Precision",
+
+	"portrait": "http://i.imgur.com/s08erxY.jpg",
+	"background": "",
+	"personality": "",
+	"notes": "Rapier is named \"Sharp Wit\"\n\nEternal enemy of all fishbirdkind.",
+
+	"tier": 1, 
+	"effort": 1,
+
+	"might": {
+		"total": 11,
+		"pool": 11
+	},
+	"speed": {
+		"total": 9,
+		"pool": 9
+	},
+	"intellect": {
+		"total": 23,
+		"pool": 23,
+		"edge": 2
+	},
+
+	"skills": [
+		{
+			"name": "Running",
+			"trained": true,
+			"specialized": false
+		},
+		{
+			"name": "Numenera",
+			"trained": true,
+			"specialized": false
+		},
+		{
+			"name": "Resisting Mental Effects",
+			"trained": true,
+			"specialized": false
+		},
+		{
+			"name": "Focus/Concentration",
+			"trained": true,
+			"specialized": false
+		}
+	],
+
+	"specialAbilities": [
+		"Practiced with Light Weapons",
+		"Onslaught (1 intellect Point)",
+		"Ward",
+		"Hedge Magic"
+	],
+
+	"impaired": false,
+	"debilitated": false,
+
+	"recovery": {
+		"roll": 1
+	},
+
+	"armor": 1,
+
+	"attacks": [
+		{
+			"name": "Rapier",
+			"mod": 1,
+			"damage": 2
+		},
+		{
+			"name": "Onslaught",
+			"mod": 0,
+			"damage": "2/4"
+		}
+	],
+
+	"experience": {
+		"total": 4
+	},
+
+	"cyphers": [
+		"Skill Boost (Sneaking) / 3 - Trained for 28 hours.",
+		"Visage Changer / 4 - Lasts for 28 hours.",
+		"Crystal Shard / 3 - Restores 3 Intelligence"
+	],
+	"cypherLimit": 3,
+
+	"artifacts": [],
+
+	"oddities": [
+		"Wandlike device that keeps away normal insects in a 5-foot radius.",
+		"Gem of pleasent dreams.",
+		"Two orbs of obsidian that seem to reflect the wielder's mood."
+	],
+
+	"equipment": [
+		"Clothing / Brigandine",
+		"Rapier",
+		"Two books on the Numenera"
+	],
+
+	"shins": 4
+}]
