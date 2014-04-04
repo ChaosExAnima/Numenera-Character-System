@@ -34,15 +34,14 @@ exports.respond = function(socket) {
 		console.log('Update for', name, 'with', data);
 
 		Character.findByName(name, function(err, character) {
-			var lo = require('lodash'),
-				obj = {};
+			var lo = require('lodash');
 
 			lo.each(data, function(val, key) {
-				var bits = key.split('.');				
+				var obj = getObjectFromString(character, key);
 
-				lo.each(bits, function(k) {
-					// obj[k] = 
-				});
+				
+
+				console.log('Got',obj.obj[obj.key],'from',key);
 			});
 		});
 
@@ -56,3 +55,20 @@ exports.respond = function(socket) {
 		
 	});
 };
+
+function getObjectFromString(obj, prop) {
+	var parts = prop.split('.'),
+		last = parts.pop(),
+		l = parts.length,
+		i = 1,
+		current = parts[0];
+
+	while((obj = obj[current]) && i < l) {
+		current = parts[i];
+		i++;
+	}
+
+	if(obj) {
+		return { obj: obj, key: last };
+	}
+}

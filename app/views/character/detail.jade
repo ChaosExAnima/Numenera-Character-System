@@ -27,7 +27,7 @@ mixin rows(name, max)
 	ul
 		- for(var i = 0; i < max; i++)
 			li
-				input(type="text", name=name+"["+i+"]", value=character[name][i])
+				input(type="text", name=name+"."+i+"", value=character[name][i])
 
 
 block content
@@ -67,13 +67,13 @@ block content
 					- for(var i = 0; i < 8; i++)
 						li
 							- var skill = character.skills[i] ? character.skills[i] : skillDefault
-							input(type="text", value=skill.name, name="skills["+i+"].name")
+							input(type="text", value=skill.name, name="skills."+i+".name")
 							span.trained
-								input(type="radio", name="skills["+i+"].type", checked=skill.trained, value="trained")
-								label(for="skills["+i+"].type") T
+								input(type="radio", name="skills."+i+".type", checked=skill.trained, value="trained")
+								label(for="skills."+i+".type") T
 							span.specialized
-								input(type="radio", name="skills["+i+"].type", checked=skill.specialized, value="specialized")
-								label(for="skills["+i+"].type") S
+								input(type="radio", name="skills."+i+".type", checked=skill.specialized, value="specialized")
+								label(for="skills."+i+".type") S
 
 			fieldset.abilities.lines
 				legend Special Abilities
@@ -109,9 +109,9 @@ block content
 						- for(var i = 0; i < 4; i++)
 							li
 								- var attack = character.attacks[i] ? character.attacks[i] : attackDefault
-								input(type="text", class="name", name="attacks["+i+"].name", value=attack.name)
-								input(type="number", class="mod", name="attacks["+i+"].mod", value=attack.mod)
-								input(type="text", class="damage", name="attacks["+i+"].damage", value=attack.damage)
+								input(type="text", class="name", name="attacks."+i+".name", value=attack.name)
+								input(type="number", class="mod", name="attacks."+i+".mod", value=attack.mod)
+								input(type="text", class="damage", name="attacks."+i+".damage", value=attack.damage)
 
 				.experience
 					+number-box("experience.total", character.experience.total, "Experience")
@@ -150,9 +150,9 @@ block content
 					- for(var i = 0; i < 26; i++)
 						li
 							- var entry = character.experience.log[i] ? character.experience.log[i] : experienceDefault;
-							input(type="text", name="experience.log["+i+"].date", value=entry.date, class="date")
-							input(type="number", name="experience.log["+i+"].val", value=entry.val, class="num")
-							input(type="text", name="experience.log["+i+"].notes", value=entry.notes, class="notes")
+							input(type="text", name="experience.log."+i+".date", value=entry.date, class="date")
+							input(type="number", name="experience.log."+i+".val", value=entry.val, class="num")
+							input(type="text", name="experience.log."+i+".notes", value=entry.notes, class="notes")
 				+number-box("experience.total", character.experience.total, "Total")
 
 		.col-md-4
