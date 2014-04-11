@@ -1,5 +1,5 @@
 node_modules
 .fuse*
-.bower*
+.bower-*
 public/lib
 *.sublime-workspace
