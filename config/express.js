@@ -51,14 +51,6 @@ module.exports = function(app, db) {
 	}));
 	app.use(express.bodyParser());
 
-	// Set up Coffeescript
-	var coffeescript = require('connect-coffee-script');
-	app.use(coffeescript({
-		src: config.root + '/app',
-		dest: config.root + '/public',
-		bare: true
-	}));
-
 	// Enable jsonp
 	app.enable('jsonp callback');
 

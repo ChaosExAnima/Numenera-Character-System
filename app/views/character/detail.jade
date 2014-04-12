@@ -69,10 +69,10 @@ block content
 							- var skill = character.skills[i] ? character.skills[i] : skillDefault
 							input(type="text", value=skill.name, name="skills."+i+".name")
 							span.trained
-								input(type="radio", name="skills."+i+".type", checked=skill.trained, value="trained")
+								input(type="radio", name="skills."+i+".type", checked=(skill.type == 'trained'), value="trained")
 								label(for="skills."+i+".type") T
 							span.specialized
-								input(type="radio", name="skills."+i+".type", checked=skill.specialized, value="specialized")
+								input(type="radio", name="skills."+i+".type", checked=(skill.type == 'specialized'), value="specialized")
 								label(for="skills."+i+".type") S
 
 			fieldset.abilities.lines

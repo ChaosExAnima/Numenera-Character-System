@@ -39,8 +39,7 @@ var CharacterSchema = new Schema({
 
 	skills: [{
 		name: String,
-		trained: { type: Boolean, default: true },
-		specialized: { type: Boolean, default: false }
+		type: { type: String, enum: [ '', 'trained', 'specialized' ] }
 	}],
 
 	specialAbilities: [String],
@@ -96,19 +95,29 @@ CharacterSchema.statics = {
 
 	findByNameAndUpdate: function(name, data, callback) {
 		this.findOneAndUpdate({ name: name }, data, function(err, character) {
-			var Log = mongoose.model('Log');
+			var Log = mongoose.model('Log'),
+				lo = require('lodash');
 
-			Log.create({
-				user: 'Ephraim',
-				characterId: character._id,
-				character: character.name,
-				changes: data
-			},
-			function(err, data) {
-				if(err) {
-					console.warn('Unable to save log:', err);
-				}
-			});
+			// lo.each(data, function(val, key) {
+			// 	var newKey = key.replace('/\./g', '\\.');
+			// 	console.log(newKey);
+			// 	data[newKey] = val;
+			// 	delete data[key];
+			// });
+
+			// console.log('Log:', data);
+
+			// Log.create({
+			// 	user: 'Ephraim',
+			// 	characterId: character._id,
+			// 	character: character.name,
+			// 	changes: data
+			// },
+			// function(err, data) {
+			// 	if(err) {
+			// 		console.warn('Unable to save log:', err);
+			// 	}
+			// });
 
 			callback(err, character);
 		});

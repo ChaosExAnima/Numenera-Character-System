@@ -32,18 +32,15 @@
 	"skills": [
 		{
 			"name": "Jumping",
-			"trained": true,
-			"specialized": false
+			"type": "trained"
 		},
 		{
 			"name": "Social Interaction",
-			"trained": false,
-			"specialized": true
+			"type": "specialized"
 		},
 		{
 			"name": "Detect Falsehood",
-			"trained": true,
-			"specialized": false
+			"type": "trained"
 		}
 	],
 

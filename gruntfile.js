@@ -77,14 +77,6 @@ module.exports = function(grunt) {
 			options: {
 				logConcurrentOutput: true
 			}
-		},
-		shell: {
-			update_db: {
-				command: 'echo foo',
-				options: {
-					stdout: true
-				}
-			}
 		}
 	});
 

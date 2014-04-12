@@ -1,221 +1,177 @@
-/*
-Numenera Character App
-Ephraim Gregor, 2014
-*/
+/**
+ * Numenera Character Sheet App
+ * Ephraim Gregor, 2014
+ * ephraim@ephraimgregor.com
+ */
 
-var app,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+/**
+ * GLOBAL VARIABLES
+ */
 
+// usage: log('inside coolFunc',this,arguments);
+// http://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
 window.log = function() {
-  var newarr;
-  log.history = log.history || [];
-  log.history.push(arguments);
-  if (this.console) {
-    arguments.callee = arguments.callee.caller;
-    newarr = [].slice.call(arguments);
-    if (typeof console.log === "object") {
-      log.apply.call(console.log, console, newarr);
-    } else {
-      console.log.apply(console, newarr);
-    }
-  }
+	log.history = log.history || [];	 // store logs to an array for reference
+	log.history.push(arguments);
+	if( this.console ) {
+		console.log( Array.prototype.slice.call(arguments) );
+	}
 };
 
 window.socket = io.connect('http://localhost');
 
-window.socket.on('foo', function(data) {
-  return log(data);
-});
 
-app = {};
 
-$(function() {
-  /*
-  	ROUTER
-  */
+var app = {};
 
-  var AppRouter, Character, CharacterView, HeaderView, _ref, _ref1, _ref2, _ref3;
-  AppRouter = (function(_super) {
-    __extends(AppRouter, _super);
+$( function() {
+	// ROUTER
+	var AppRouter = Backbone.Router.extend({
+		routes: {
+			'character/:name(/:page)': 'character'
+		},
 
-    function AppRouter() {
-      _ref = AppRouter.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
+		name : '',
+		page : 1,
 
-    AppRouter.prototype.routes = {
-      'character/:name(/:page)': 'character'
-    };
+		character: function(name, page) {
+			this.name = name;
+			this.page = page != null ? page : 1;
+			this.model = new Character();
+			this.bodyView = new CharacterView();
+			this.headerView = new HeaderView();
+		}
+	});
 
-    AppRouter.prototype.name = '';
+	// MODEL
+	var Character = Backbone.Model.extend({
 
-    AppRouter.prototype.page = 1;
+		socket: window.socket,
+		noIoBind: false,
+		urlRoot: 'character',
+		
+		initialize: function() {
+			this.set('id', app.name);
+			
+			_.bindAll(this, 'serverChange', 'serverDelete', 'modelCleanup');
 
-    AppRouter.prototype.character = function(name, page) {
-      this.name = name;
-      this.page = page != null ? page : {
-        page: 1
-      };
-      this.model = new Character();
-      this.bodyView = new CharacterView();
-      return this.headerView = new HeaderView();
-    };
+			if(!this.noIoBind) {
+				this.ioBind('update', this.serverChange, this);
+				this.ioBind('delete', this.serverDelete, this);
+			}
+		},
 
-    return AppRouter;
+		serverChange: function(data) {
+			log('Got from server:', data);
+			data.fromServer = true;
+			this.set(data);
+		},
 
-  })(Backbone.Router);
-  /*
-  	MODELS
-  */
+		serverDelete: function(data) {
+			this.trigger('remove', this);
+			this.modelCleanup();
+		},
 
-  Character = (function(_super) {
-    __extends(Character, _super);
+		modelCleanup: function() {
+			this.ioUnbindAll();
+			return this;
+		}
+	});
 
-    function Character() {
-      _ref1 = Character.__super__.constructor.apply(this, arguments);
-      return _ref1;
-    }
+	// VIEWS
+	var HeaderView = Backbone.View.extend({
+		el: 'div.navbar',
+		
+		events: {
+			'click label': 'changePage'
+		},
 
-    Character.prototype.socket = window.socket;
+		initialize: function() {
+			this.$ul = this.$el.find('.navbar-nav');
+		},
 
-    Character.prototype.noIoBind = false;
+		changePage: function(event) {
+			app.page = $(event.target).data('page');
+			app.navigate('character/' + app.name + '/' + app.page);
+			app.bodyView.changePage();
+		}	
+	});
 
-    Character.prototype.urlRoot = 'character';
+	var CharacterView = Backbone.View.extend({
+		el: '#main-content',
 
-    Character.prototype.initialize = function() {
-      this.set('id', app.name);
-      _.bindAll(this, 'serverChange', 'serverDelete', 'modelCleanup');
-      if (!this.noIoBind) {
-        this.ioBind('update', this.serverChange, this);
-        return this.ioBind('delete', this.serverDelete, this);
-      }
-    };
+		events: {
+			'change input[type="radio"], input[type="checkbox"]': 'onChange',
+			'input input[type="text"], input[type="number"], textarea': 'onChange',
+			'click input[type="radio"]': 'onClickRadio'
+		},
 
-    Character.prototype.serverChange = function(data) {
-      log('Got from server:', data);
-      data.fromServer = true;
-      return this.set(data);
-    };
+		initialize: function() {
+			this.$el.find('input, textarea').each(function() {
+				var $ele = $(this),
+					type = $ele.attr('type'),
+					name = $ele.attr('name'),
+					val  = $ele.val();
 
-    Character.prototype.serverDelete = function(data) {
-      if (this.collection) {
-        this.collection.remove(this);
-      } else {
-        this.trigger('remove', this);
-      }
-      return this.modelCleanup();
-    };
+				if(type === 'checkbox') {
+					val = $ele.prop('checked');
+				} else if(type === 'radio' && !$ele.prop('checked')) {
+					val = null;
+				}
 
-    Character.prototype.modelCleanup = function() {
-      this.ioUnbindAll();
-      return this;
-    };
+				if(val !== null && val !== '') {
+					app.model.set(name, val);
+				}
+			});
 
-    return Character;
+			this.binder = new Backbone.ModelBinder();
+			this.render();
+		},
 
-  })(Backbone.Model);
-  /*
-  	VIEWS
-  */
+		render: function() {
+			this.binder.bind(app.model, this.el);
+		},
 
-  HeaderView = (function(_super) {
-    __extends(HeaderView, _super);
+		onChange: function(event) {
+			var $ele = $(event.target),
+				name = $ele.attr('name'),
+				val  = $ele.val();
 
-    function HeaderView() {
-      _ref2 = HeaderView.__super__.constructor.apply(this, arguments);
-      return _ref2;
-    }
+			if($ele.attr('type') === 'checkbox') {
+				val = $ele.prop('checked');
+			}
+			
+			this.save(name, val);
+		},
 
-    HeaderView.prototype.el = 'div.navbar';
+		onClickRadio: function(event) {
+			var $ele = $(event.target), 
+				name = $ele.attr('name'),
+				$sibling = $ele.parent().siblings('span').children('input');
 
-    HeaderView.prototype.events = {
-      'click label': 'changePage'
-    };
+			if($ele.prop('checked') && !$sibling.prop('checked')) {
+				$ele.prop('checked', false);
 
-    HeaderView.prototype.initialize = function() {
-      return this.$ul = this.$el.find('.navbar-nav');
-    };
+				// this.save(name, false);	
+			}
+		},
 
-    HeaderView.prototype.changePage = function(event) {
-      app.page = $(event.target).data('page');
-      app.navigate('character/' + app.name + '/' + app.page);
-      return app.bodyView.changePage();
-    };
+		save: function(name, val) {
+			log(name, 'changed:', val);
+			app.model.save(name, val, { patch: true });
+		},
 
-    return HeaderView;
+		changePage: function() {
+			var $root = this.$el,
+				$active = this.$el.children('.active');
+			
+			$active.fadeOut(function() {
+				$active.removeClass('active');
+				$root.children('[data-page=' + app.page + ']').addClass('active').show();
+			});
+		}
+	});
 
-  })(Backbone.View);
-  CharacterView = (function(_super) {
-    __extends(CharacterView, _super);
-
-    function CharacterView() {
-      _ref3 = CharacterView.__super__.constructor.apply(this, arguments);
-      return _ref3;
-    }
-
-    CharacterView.prototype.el = '#main-content';
-
-    CharacterView.prototype.events = {
-      'change input, textarea': 'onChange'
-    };
-
-    CharacterView.prototype.initialize = function() {
-      this.$el.find('input, textarea').each(function() {
-        var $ele, name, type, val;
-        $ele = $(this);
-        type = $ele.attr('type');
-        name = $ele.attr('name');
-        val = $ele.val();
-        if (type === 'checkbox') {
-          val = $ele.prop('checked');
-        } else if (type === 'radio' && !$ele.prop('checked')) {
-          val = null;
-        }
-        if (val !== null && val !== '') {
-          return app.model.set(name, val);
-        }
-      });
-      this.binder = new Backbone.ModelBinder();
-      return this.render();
-    };
-
-    CharacterView.prototype.render = function() {
-      return this.binder.bind(app.model, this.el);
-    };
-
-    CharacterView.prototype.onChange = function(event) {
-      var $ele, name, val;
-      $ele = $(event.target);
-      val = $ele.val();
-      name = $ele.attr('name');
-      if ($ele.attr('type') === 'checkbox') {
-        val = $ele.prop('checked');
-      }
-      log(name, 'changed:', val);
-      return app.model.save(name, val, {
-        patch: true
-      });
-    };
-
-    CharacterView.prototype.changePage = function() {
-      var root;
-      root = this.$el;
-      return root.children('.active').fadeOut(function() {
-        root.children('.active').removeClass('active');
-        return root.children('[data-page=' + app.page + ']').addClass('active').show();
-      });
-    };
-
-    return CharacterView;
-
-  })(Backbone.View);
-  /*
-  	INITIALIZATION
-  */
-
-  app = new AppRouter();
-  Backbone.history.start({
-    pushState: true
-  });
-});
+	app = new AppRouter();
+	Backbone.history.start({ pushState: true });
+} );
