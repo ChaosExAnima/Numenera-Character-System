@@ -14,4 +14,20 @@ var LogSchema = new Schema({
 	changes: Object
 });
 
+LogSchema.statics = {
+	createEscaped: function(data, callback) {
+		var lo = require('lodash'),
+			clean = {};
+
+		lo.each(data.changes, function(val, key) {
+			var newKey = key.split('.').join('-');
+			clean[newKey] = val;
+		});
+
+		data.changes = clean;
+
+		this.create(data, callback);
+	}
+};
+
 mongoose.model('Log', LogSchema);

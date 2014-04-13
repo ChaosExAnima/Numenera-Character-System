@@ -1,0 +1,172 @@
+extends ../layouts/default
+
+mixin field(name)
+		input(type="text", name=name, class=name)
+
+mixin text(name, rows)
+	textarea(class=name, name=name, rows=rows)
+
+mixin number-box(name, text, type)
+	span(class=name.replace('.', ' ')+" number-box")
+		label(for=name)= text
+		input(type=type, name=name, id=name)
+
+mixin check-box(name, text)
+	span(class=name.replace('.', ' ')+" check-box")
+		input(type="checkbox", name=name, id=name)
+		label(for=name)= text
+
+mixin pool(type)
+	div(class=type+" pool")
+		+number-box(type+".total", type, "text")
+		+number-box(type+".pool", "Pool", "text")
+		+number-box(type+".edge", "Edge", "text")
+
+mixin rows(name, max)
+	- max = max ? max : 6;
+	ul
+		- for(var i = 0; i < max; i++)
+			li
+				input(type="text", name=name+"."+i+"")
+
+
+block content
+	section.page-1(data-page="1", class=(page == 1) ? 'active' : '')
+		.col-md-4
+			fieldset.notes
+				legend Notes
+				+text("notes", 31)
+
+		.col-md-4
+			fieldset.background
+				legend Background
+				+text("background", 19)
+
+			fieldset.personality
+				legend Personality
+				+text("personality", 6)
+
+		.col-md-4
+			fieldset.character
+				legend Character
+				+field("name")
+				span is a
+				+field("descriptor")
+				+field("type")
+				span who
+				+field("focus")
+
+			fieldset.portrait
+				legend Portrait
+
+	section.page-2(data-page="2", class=(page == 2) ? 'active' : '')
+		.col-md-4
+			fieldset.skills.floating
+				legend Skills
+				ul
+					- for(var i = 0; i < 8; i++)
+						li
+							input(type="text", name="skills."+i+".name")
+							span.trained
+								input(type="radio", name="skills."+i+".type", value="trained", disabled=true)
+								label(for="skills."+i+".type") T
+							span.specialized
+								input(type="radio", name="skills."+i+".type", value="specialized", disabled=true)
+								label(for="skills."+i+".type") S
+
+			fieldset.abilities.lines
+				legend Special Abilities
+				+rows("specialAbilities", 13)
+
+		.col-md-4
+			fieldset.stats.floating
+				+number-box("tier", "Tier", "text")
+				+number-box("effort", "Effort", "text")
+
+				+pool("might")
+				+pool("speed")
+				+pool("intellect")
+
+				.health
+					.damage
+						label Damage
+						+check-box("impaired", "Impaired")
+						+check-box("debilitated", "Debilitated")
+					.recovery
+						+number-box("recovery.roll", "Recovery Roll", "text")
+
+					.uses
+						+check-box("recovery.oneAction", "1 Action")
+						+check-box("recovery.tenMinutes", "10 Minutes")
+						+check-box("recovery.oneHour", "1 Hour")
+						+check-box("recovery.eightHours", "8 Hours")
+
+				.attacks
+					label Attacks
+					+number-box("armor", "Armor", "text")
+					ul
+						- for(var i = 0; i < 4; i++)
+							li
+								input(type="text", class="name", name="attacks."+i+".name")
+								input(type="number", class="mod", name="attacks."+i+".mod")
+								input(type="text", class="damage", name="attacks."+i+".damage")
+
+				.experience
+					+number-box("experience.total", "Experience", "text")
+					+check-box("experience.statPools", "Stat Pools")
+					+check-box("experience.edge", "Edge")
+					+check-box("experience.effort", "Effort")
+					+check-box("experience.skills", "Skills")
+
+		.col-md-4
+			fieldset.cyphers.lines
+				legend Cyphers
+				+rows("cyphers", 12)
+				.cypherLimit
+					+number-box("cypherLimit", "Limit", "text")
+
+			fieldset.artifacts.lines
+				legend Artifacts
+				+rows("artifacts", 12)
+
+			
+
+	section.page-3(data-page="3", class=(page == 3) ? 'active' : '')
+		.col-md-4
+			fieldset.oddities.lines
+				legend Oddities
+				+rows("oddities", 12)
+
+			fieldset.equipment.lines
+				legend Equipment
+				+rows("equipment", 12)
+
+		.col-md-4
+			fieldset.experience.lines
+				legend Experience Log
+				ul
+					- for(var i = 0; i < 26; i++)
+						li
+							input(type="text", name="experience.log."+i+".date", class="date")
+							input(type="number", name="experience.log."+i+".val", class="num")
+							input(type="text", name="experience.log."+i+".notes", class="notes")
+				+number-box("experience.total", "Total", "text")
+
+		.col-md-4
+			fieldset.quote
+				legend Quotes
+				+text('quotes', 31)
+
+	#portrait-modal.modal.fade(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(data-dismiss="modal", aria-hidden="true") &times;
+					h4.modal-title Portrait
+				.modal-body
+					.form-group
+						label(for="portrait") Portrait URL (min 350x385)
+						input(type="url", name="portrait", id="portrait")
+					
+					button#portrait-save.btn.btn-primary(type="button") Set Portrait
+					button.btn.btn-default(type="button", data-dismiss="modal") Cancel

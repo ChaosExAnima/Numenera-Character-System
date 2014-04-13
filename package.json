@@ -8,15 +8,13 @@
     "jade": "*",
     "stylus": "*",
     "nib": "*",
-    "async": "*",
     "lodash": "*",
-    "connect-coffee-script": "*",
     "mongoose": "*",
-    "express-form": "*",
     "connect-flash": "*",
     "grunt": "*",
     "assetmanager": "*",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "async": "~0.7.0"
   },
   "main": "server",
   "devDependencies": {

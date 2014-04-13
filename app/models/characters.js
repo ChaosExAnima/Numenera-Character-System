@@ -17,6 +17,7 @@ var CharacterSchema = new Schema({
 	background: String,
 	personality: String,
 	notes: String,
+	quotes: String,
 	
 	tier: { type: Number, default: 1, min: 1, max: 6 },
 	effort: { type: Number, default: 1, min: 1 },
@@ -48,7 +49,7 @@ var CharacterSchema = new Schema({
 	debilitated: { type: Boolean, default: false },
 
 	recovery: {
-		roll: { type: Number, default: 1 },
+		roll: { type: String, default: '1d6 + 1' },
 		oneAction: { type: Boolean, default: false },
 		tenMinutes: { type: Boolean, default: false },
 		oneHour: { type: Boolean, default: false },
@@ -95,19 +96,14 @@ CharacterSchema.statics = {
 
 	findByNameAndUpdate: function(name, data, callback) {
 		this.findOneAndUpdate({ name: name }, data, function(err, character) {
-			var Log = mongoose.model('Log'),
-				lo = require('lodash');
+			if(err) {
+				console.error('ERROR:', err);
+				return;
+			}
 
-			// lo.each(data, function(val, key) {
-			// 	var newKey = key.replace('/\./g', '\\.');
-			// 	console.log(newKey);
-			// 	data[newKey] = val;
-			// 	delete data[key];
-			// });
+			// var Log = mongoose.model('Log');
 
-			// console.log('Log:', data);
-
-			// Log.create({
+			// Log.createEscaped({
 			// 	user: 'Ephraim',
 			// 	characterId: character._id,
 			// 	character: character.name,

@@ -31,23 +31,19 @@
 	"skills": [
 		{
 			"name": "Running",
-			"trained": true,
-			"specialized": false
+			"type": "trained"
 		},
 		{
 			"name": "Numenera",
-			"trained": true,
-			"specialized": false
+			"type": "trained"
 		},
 		{
 			"name": "Resisting Mental Effects",
-			"trained": true,
-			"specialized": false
+			"type": "trained"
 		},
 		{
 			"name": "Focus/Concentration",
-			"trained": true,
-			"specialized": false
+			"type": "trained"
 		}
 	],
 
@@ -81,7 +77,11 @@
 	],
 
 	"experience": {
-		"total": 4
+		"total": 4,
+		"log": [{
+			"val": 4,
+			"notes": "Previous games"
+		}]
 	},
 
 	"cyphers": [

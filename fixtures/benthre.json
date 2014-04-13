@@ -6,7 +6,7 @@
 	"type": "Jack",
 	"focus": "Fuses Flesh and Steel",
 
-	"portrait": "",
+	"portrait": "http://665880566.r.lightningbase-cdn.com/wp-content/uploads/2011/07/JohnBarrowman.jpg",
 	"background": "You remember little of your past, which has always seemed strange to you. You are secretive about your partially mechanical nature and use your natural charm to convince others that you are nothing more than you appear. Thus, your components are hidden from everyone except Leve who recently discovered your secret.\n\nYour group's current mission to explore the wilderness was instigated by you. You fancy yourself the group's leader.",
 	"personality": "Charming yet headstrong, Benthre leads the party through both friendship and toughness.",
 	"notes": "",
@@ -79,7 +79,11 @@
 	],
 
 	"experience": {
-		"total": 9
+		"total": 9,
+		"log": [{
+			"val": 9,
+			"notes": "Previous games"
+		}]
 	},
 
 	"cyphers": [

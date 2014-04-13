@@ -69,10 +69,10 @@ block content
 							- var skill = character.skills[i] ? character.skills[i] : skillDefault
 							input(type="text", value=skill.name, name="skills."+i+".name")
 							span.trained
-								input(type="radio", name="skills."+i+".type", checked=(skill.type == 'trained'), value="trained")
+								input(type="radio", name="skills."+i+".type", checked=(skill.type == 'trained'), value="trained", disabled=(skill.name === ''))
 								label(for="skills."+i+".type") T
 							span.specialized
-								input(type="radio", name="skills."+i+".type", checked=(skill.type == 'specialized'), value="specialized")
+								input(type="radio", name="skills."+i+".type", checked=(skill.type == 'specialized'), value="specialized", disabled=(skill.name === ''))
 								label(for="skills."+i+".type") S
 
 			fieldset.abilities.lines
@@ -159,4 +159,4 @@ block content
 			fieldset.notes
 				legend Further Notes
 
-	pre= character
+	//- pre= character

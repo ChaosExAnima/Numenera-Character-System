@@ -624,6 +624,9 @@ body {
   width: 50%;
   margin: 2px 0 2px 50%;
 }
+.page-2 fieldset.cyphers input.extra {
+  color: #c80000;
+}
 .page-2 fieldset.cyphers div.cypherLimit {
   width: 30%;
   position: relative;
@@ -777,4 +780,10 @@ body {
 }
 .check-box input:checked + label::before {
   background-color: #0000c8;
+}
+#portrait-modal label {
+  display: block;
+}
+#portrait-modal input {
+  width: 100%;
 }
