@@ -89,7 +89,8 @@ module.exports = function(app, db) {
 						name: 'Home',
 						active: true
 					}
-				]
+				],
+				debug: (process.env.NODE_ENV !== 'production')
 			});
 			next();
 		});
