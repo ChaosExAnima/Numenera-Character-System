@@ -100,4 +100,5 @@ module.exports = function(grunt) {
 	} else {
 		grunt.registerTask('default', ['csslint', 'concurrent']);
 	}
+	grunt.registerTask('minify', ['csslint', 'cssmin', 'uglify']);
 };
