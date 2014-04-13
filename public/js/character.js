@@ -18,7 +18,7 @@ window.log = function() {
 	}
 };
 
-window.socket = io.connect('http://localhost');
+window.socket = io.connect(window.location.hostname);
 
 
 
