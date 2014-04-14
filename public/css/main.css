@@ -690,6 +690,22 @@ body {
 .page-3 {
   background-image: url("/img/page-3.jpg");
 }
+.page-3 fieldset.equipment .shins {
+  width: 35%;
+  float: right;
+  margin-top: -8px;
+}
+.page-3 fieldset.equipment .shins label {
+  width: 50%;
+}
+.page-3 fieldset.equipment .shins input {
+  width: calc(50% - 5px);
+}
+.page-3 fieldset.equipment .shins input,
+.page-3 fieldset.equipment .shins label {
+  height: 20px;
+  text-align: center;
+}
 .page-3 fieldset.experience input {
   float: left;
   height: 20px;
