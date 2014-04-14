@@ -2,11 +2,27 @@
  * Mixins
  */
 /**
- * All Pages
+ * General
  */
 body {
   padding-top: 70px;
 }
+.navbar-inverse .refreshing {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -webkit-transition: 0.5s opacity;
+  -moz-transition: 0.5s opacity;
+  -o-transition: 0.5s opacity;
+  -ms-transition: 0.5s opacity;
+  transition: 0.5s opacity;
+}
+.navbar-inverse .refreshing span {
+  margin-right: 5px;
+}
+/**
+ * All Pages
+ */
 .page-1,
 .page-2,
 .page-3 {

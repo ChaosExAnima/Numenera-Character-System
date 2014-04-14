@@ -39,6 +39,7 @@ exports.respond = function(socket) {
 			character = character.toObject();			
 			console.log('Returning', character.name, 'state');
 
+			// Experience date formatting
 			var pad = function(str) {
 				str = str.toString();
 				return str.length < 2 ? '0'+str : str;
@@ -46,7 +47,14 @@ exports.respond = function(socket) {
 
 			character.experience.log.forEach(function(item, key) {
 				var date = new Date(item.date);
-				character.experience.log[key].date = date.getFullYear()+'-'+pad(date.getMonth())+'-'+pad(date.getDate());
+
+				if( date.getTime() === 0 ) {
+					date = '';
+				} else {
+					date = date.getFullYear()+'-'+pad(date.getMonth())+'-'+pad(date.getDate());
+				}
+
+				character.experience.log[key].date = date;
 			});
 
 			socket.emit('character/'+name+':read', character);

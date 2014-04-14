@@ -27,8 +27,9 @@ $( function() {
 			this.name = name;
 			this.page = page !== null ? page : 1;
 			this.model = new Character();
-			this.bodyView = new CharacterView();
 			this.headerView = new HeaderView();
+			this.alertView = new AlertView();
+			this.bodyView = new CharacterView();
 		}
 	});
 
@@ -42,7 +43,7 @@ $( function() {
 		initialize: function() {
 			this.set('id', app.name);
 			
-			_.bindAll(this, 'serverChange', 'serverDelete', 'modelCleanup');
+			_.bindAll(this, 'serverChange', 'serverDelete', 'modelCleanup', 'syncError');
 
 			if(!this.noIoBind) {
 				this.ioBind('read', this.serverRead, this);
@@ -81,12 +82,12 @@ $( function() {
 			console.log('Read:', result);
 
 			this.set(result);
-
 			app.bodyView.bind();
 		},
 
 		serverChange: function(data) {
 			console.log('Got from server:', data);
+			app.headerView.showRefresh();
 			data.fromServer = true;
 			this.set(data);
 		},
@@ -99,6 +100,10 @@ $( function() {
 		modelCleanup: function() {
 			this.ioUnbindAll();
 			return this;
+		},
+
+		syncError: function() {
+			app.alertView.show('There was a problem syncing with the server!');
 		}
 	});
 
@@ -112,13 +117,42 @@ $( function() {
 
 		initialize: function() {
 			this.$ul = this.$el.find('.navbar-nav');
+			this.$refresh = this.$el.find('.refreshing');
 		},
 
 		changePage: function(event) {
 			app.page = $(event.target).data('page');
 			app.navigate('character/' + app.name + '/' + app.page);
 			app.bodyView.changePage();
-		}	
+		},
+
+		showRefresh: function() {
+			this.$refresh.css('opacity', 1);
+			_.delay( _.bind( this.hideRefresh, this ), 2000);
+		},
+
+		hideRefresh: function() {
+			_.debounce( this.$refresh.css('opacity', 0), 1000 );
+		}
+	});
+
+	var AlertView = Backbone.View.extend({
+		el: '.alert',
+		$template: $('#alert-template'),
+
+		initialize: function() {
+			this.template = _.template( this.$template.html() );
+		},
+
+		show: function(text) {
+			this.hide();
+			this.$template.after( this.template({ text: text }) );
+			this.$el = $('.alert');
+		},
+
+		hide: function() {
+			this.$el.alert('close');
+		}
 	});
 
 	var CharacterView = Backbone.View.extend({
@@ -227,8 +261,6 @@ $( function() {
 			var limit = data.attributes.cypherLimit,
 				$inputs = this.$('.cyphers li input');
 
-			console.log('Cyphers:', data.attributes);
-
 			$inputs.removeClass('extra');
 
 			for( var i = 0; i < $inputs.length; i++ ) {
@@ -246,6 +278,7 @@ $( function() {
 		save: function(name, val) {
 			console.log(name, 'changed:', val);
 			app.model.save(name, val, { patch: true });
+			app.headerView.showRefresh();
 		},
 
 		changePage: function() {

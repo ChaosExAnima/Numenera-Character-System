@@ -6,5 +6,10 @@ html(lang="en")
 		include ../includes/navbar
 		
 		section.container#main-content
+			script#alert-template(type="text/template")
+				.alert.alert-success.alert-dismissable.fade.in
+					button.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
+					!= '<%= text %>'
+
 			block content
 		include ../includes/foot

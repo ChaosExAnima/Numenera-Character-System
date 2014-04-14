@@ -18,3 +18,7 @@
 						label.btn.btn-primary(data-page=item, class=(item == page) ? 'active' : '')
 							input(type="radio", name="pages")
 							= "Page "+item
+
+			p.navbar-text.navbar-right.refreshing
+				span.glyphicon.glyphicon-refresh
+				| Syncing

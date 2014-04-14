@@ -100,21 +100,7 @@ CharacterSchema.statics = {
 			if(err) {
 				console.error('ERROR:', err);
 				return;
-			}
-
-			// var Log = mongoose.model('Log');
-
-			// Log.createEscaped({
-			// 	user: 'Ephraim',
-			// 	characterId: character._id,
-			// 	character: character.name,
-			// 	changes: data
-			// },
-			// function(err, data) {
-			// 	if(err) {
-			// 		console.warn('Unable to save log:', err);
-			// 	}
-			// });
+			}		
 
 			callback(err, character);
 		});
