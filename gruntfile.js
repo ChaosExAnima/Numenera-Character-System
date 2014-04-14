@@ -37,6 +37,10 @@ module.exports = function(grunt) {
 			}
 		},
 		uglify: {
+			options: {
+				compress: false,
+				sourceMap: true
+			},
 			production: {
 				files: '<%= assets.js %>'
 			}
@@ -101,7 +105,7 @@ module.exports = function(grunt) {
 
 	// Basic Tasks.
 	grunt.registerTask('default', ['csslint', 'jshint', 'concurrent']); // Development.
-	grunt.registerTask('minify', ['csslint', 'jshint', 'cssmin', 'uglify']); // Production.
+	grunt.registerTask('compile', ['csslint', 'jshint', 'cssmin', 'uglify']); // Production.
 
 	// Custom Tasks.
 	grunt.registerMultiTask('fixtures', 'Loads fixture data into DB.', function() {
