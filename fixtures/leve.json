@@ -1,4 +1,4 @@
-[{
+{
 	"player": "AJ",
 
 	"name": "Leve",
@@ -58,7 +58,7 @@
 	"debilitated": false,
 
 	"recovery": {
-		"roll": 1
+		"roll": "1d6 + 1"
 	},
 
 	"armor": 1,
@@ -106,4 +106,4 @@
 	],
 
 	"shins": 4
-}]
+}

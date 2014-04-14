@@ -1,4 +1,4 @@
-[{
+{
 	"player": "Emily",
 
 	"name": "Benthre",
@@ -60,7 +60,7 @@
 	"debilitated": false,
 
 	"recovery": {
-		"roll": 2
+		"roll": "1d6 + 2"
 	},
 
 	"armor": 3,
@@ -110,4 +110,4 @@
 	],
 
 	"shins": 24
-}]
+}

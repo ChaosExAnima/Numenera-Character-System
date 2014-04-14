@@ -38,8 +38,8 @@ var config = require('./config/config'),
 var db = mongoose.connect(config.db);
 
 // Bootstrap models
-var models_path = __dirname + '/app/models';
-walk(models_path);
+var modelsPath = __dirname + '/app/models';
+walk(modelsPath);
 
 var app = express();
 

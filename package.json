@@ -8,13 +8,10 @@
     "jade": "1.3.0",
     "stylus": "0.43.1",
     "nib": "1.0.2",
-    "lodash": "*",
     "mongoose": "*",
-    "connect-flash": "*",
     "grunt": "*",
     "assetmanager": "*",
-    "socket.io": "~0.9.16",
-    "async": "~0.7.0"
+    "socket.io": "~0.9.16"
   },
   "main": "server",
   "devDependencies": {
@@ -26,7 +23,6 @@
     "grunt-contrib-jshint": "latest",
     "grunt-karma": "~0.6.2",
     "grunt-nodemon": "0.2.0",
-    "grunt-concurrent": "latest",
-    "grunt-shell": "latest"
+    "grunt-concurrent": "latest"
   }
 }

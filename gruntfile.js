@@ -1,13 +1,15 @@
 'use strict';
 
 module.exports = function(grunt) {
+	var config = require('./config/config');
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		assets: grunt.file.readJSON('config/assets.json'),
 		watch: {
 			js: {
 				files: ['gruntfile.js', 'server.js', 'app/**/*.js', 'app/**/*.coffee', 'public/js/**'],
-				// tasks: ['jshint'],
+				tasks: ['jshint'],
 				options: {
 					livereload: true
 				}
@@ -24,10 +26,6 @@ module.exports = function(grunt) {
 				options: {
 					livereload: true
 				}
-			},
-			fixtures: {
-				files: ['fixtures/*.json'],
-				tasks: ['shell:update_db'],
 			}
 		},
 		jshint: {
@@ -56,6 +54,14 @@ module.exports = function(grunt) {
 				files: '<%= assets.css %>'
 			}
 		},
+		fixtures: {
+			options: {
+				db: config.db,
+				schema: __dirname + '/app/models/characters.js',
+				model: 'Character'
+			},
+			files: ['fixtures/*.json']
+		},
 		nodemon: {
 			dev: {
 				script: 'server.js',
@@ -80,7 +86,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	//Load NPM tasks
+	// Load NPM tasks
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -89,16 +95,49 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-env');
-	grunt.loadNpmTasks('grunt-shell');
 
-	//Making grunt default to force in order not to break the project.
+	// Making grunt default to force in order not to break the project.
 	grunt.option('force', true);
 
-	//Default task(s).
-	if (process.env.NODE_ENV === 'production') {
-		grunt.registerTask('default', ['csslint', 'cssmin', 'uglify', 'concurrent']);
-	} else {
-		grunt.registerTask('default', ['csslint', 'concurrent']);
-	}
-	grunt.registerTask('minify', ['csslint', 'cssmin', 'uglify']);
+	// Basic Tasks.
+	grunt.registerTask('default', ['csslint', 'jshint', 'concurrent']); // Development.
+	grunt.registerTask('minify', ['csslint', 'jshint', 'cssmin', 'uglify']); // Production.
+
+	// Custom Tasks.
+	grunt.registerMultiTask('fixtures', 'Loads fixture data into DB.', function() {
+		// Load schema
+		require(this.options().schema);
+
+		// Loads models.
+		var mongoose = require('mongoose').connect(this.options().db),
+			model = mongoose.model(this.options().model),
+			path = require('path'),
+			done = this.async(),
+			files = this.filesSrc;
+
+		// Clean old data.
+		model.remove({}, function(err) {
+			if(err) {
+				console.error('ERROR:', err);
+				done();
+				return;
+			}
+
+			console.log('Removed old documents.');
+
+			// Load new data.
+			files.forEach( function(fixturePath) {
+				fixturePath = path.resolve(fixturePath);
+				
+				if( fixturePath ) {
+					console.log('Loading:', fixturePath);
+
+					var data = require(fixturePath);
+					model.create(data);
+				}			
+			});
+
+			done();
+		});
+	});
 };

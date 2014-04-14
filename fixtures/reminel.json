@@ -1,0 +1,116 @@
+{
+	"player": "Sen",
+
+	"name": "Reminel",
+	"descriptor": "Graceful",
+	"type": "Nano",
+	"focus": "Talks to Machines",
+
+	"portrait": "",
+	"background": "You bear a number of subtle devices and components implanted in your flesh which provide your esoteric powers.",
+	"personality": "",
+	"notes": "",
+
+	"tier": 1,
+	"effort": 1,
+
+	"might": {
+		"total": 7,
+		"pool": 7
+	},
+	"speed": {
+		"total": 14,
+		"pool": 14
+	},
+	"intellect": {
+		"total": 15,
+		"pool": 15,
+		"edge": 2
+	},
+
+	"skills": [
+		{
+			"name": "Balance",
+			"type": "trained"
+		},
+		{
+			"name": "Speed",
+			"type": "trained"
+		},
+		{
+			"name": "Physical Performances",
+			"type": "trained"
+		},
+		{
+			"name": "Stealth",
+			"type": "trained"
+		},
+		{
+			"name": "Numenera",
+			"type": "trained"
+		},
+		{
+			"name": "Electrical Machine Tasks",
+			"type": "trained"
+		}
+	],
+
+	"specialAbilities": [
+		"Practiced with Light Weapons",
+		"Push (Costs 2 Intellect Points)",
+		"Scan (Costs 2 Intellect Points)",
+		"Distant Activation (Costs 1 Intellect Point)"
+	],
+
+	"impaired": false,
+	"debilitated": false,
+
+	"recovery": {
+		"roll": "1d6 + 1"
+	},
+
+	"armor": 0,
+
+	"attacks": [
+		{
+			"name": "Punching Dagger",
+			"mod": 1,
+			"damage": 2
+		}
+	],
+
+	"experience": {
+		"total": 4,
+		"log": [{
+			"val": 4,
+			"notes": "Previous games"
+		}]
+	},
+
+	"cyphers": [
+		"Rejuvenator / 4 - Restore 4 points to Speed pool",
+		"Speed Boost / 3 - Add +1 to Speed Edge for 1 hour",
+		"Countermeasures / 5 - Scrambles electrical devices for 1 minute. 2 round delay time."
+	],
+	"cypherLimit": 3,
+
+	"artifacts": [
+		"Death by Angles / 7 - Long range energy burst that bounces off inorganic materials. +2 difficulty, and +3 damage per additional step, up to 19 damage. 1d20 depletion."
+	],
+
+	"oddities": [
+		"Saddle sized for a very small animal, such as a squirrel or small cat.",
+		"Lozanges that stick to surfaces."
+	],
+
+	"equipment": [
+		"Clothing",
+		"Punch Dagger",
+		"Book on Numenera",
+		"A bag of small tools",
+		"Map",
+		"Drugs"
+	],
+
+	"shins": 19
+}

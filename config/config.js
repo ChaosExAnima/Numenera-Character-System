@@ -6,5 +6,5 @@ var path = require('path'),
 module.exports = {
 	root: rootPath,
 	port: process.env.PORT || 3000,
-	db: 'mongodb://localhost/numenera-characters'
+	db: 'mongodb://localhost:27017/numenera-characters'
 };

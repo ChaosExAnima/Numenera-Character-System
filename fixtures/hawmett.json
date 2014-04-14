@@ -1,0 +1,108 @@
+{
+	"player": "Lin",
+
+	"name": "Hawmett",
+	"descriptor": "Mystical/Mechanical",
+	"type": "Glaive",
+	"focus": "Controls Gravity",
+
+	"portrait": "",
+	"background": "",
+	"personality": "",
+	"notes": "",
+
+	"tier": 1,
+	"effort": 2,
+
+	"might": {
+		"total": 14,
+		"pool": 14,
+		"edge": 2
+	},
+	"speed": {
+		"total": 13,
+		"pool": 13,
+		"edge": 1
+	},
+	"intellect": {
+		"total": 13,
+		"pool": 13
+	},
+
+	"skills": [
+		{
+			"name": "Running",
+			"type": "trained"
+		},
+		{
+			"name": "Numenera",
+			"type": "trained"
+		}
+	],
+
+	"specialAbilities": [
+		"Practiced in Armor",
+		"Practiced in all weapons",
+		"Thrust (Costs 1 Might Point)",
+		"Practiced without armor",
+		"*Inability: Charm, Persuasion, Etiquette",
+		"Sense \"magic\"",
+		"Hedge magic (Costs 1 Intellect Point)",
+		"Hover (Costs 1 Intellect Point)"
+	],
+
+	"impaired": false,
+	"debilitated": false,
+
+	"recovery": {
+		"roll": "1d6 + 1"
+	},
+
+	"armor": 0,
+
+	"attacks": [
+		{
+			"name": "Sword",
+			"mod": 0,
+			"damage": 4
+		},
+		{
+			"name": "Stronglass Dagger",
+			"mod": 1,
+			"damage": 2
+		}
+	],
+
+	"experience": {
+		"total": 7,
+		"log": [{
+			"val": 7,
+			"notes": "Previous games"
+		}]
+	},
+
+	"cyphers": [
+		"Force Screen Projector / 3 - Creates plane of force up to 20'x20' for one hour.",
+		"Mental Imager / 5 - Capture scene of up to a minute, replay directly into memory."
+	],
+	"cypherLimit": 2,
+
+	"artifacts": [],
+
+	"oddities": [
+		"Pen that says weight of whatever you point it at.",
+		"Sealed glass cube containing a live insect.",
+		"Metallic mask that fits to face and changes expression with you."
+	],
+
+	"equipment": [
+		"Chainmail Hauberk",
+		"Sword",
+		"Stronglass Dagger",
+		"Shield (Asset for Speed Defense)",
+		"Explorer's Pack",
+		"Bottle of strong alcohol"
+	],
+
+	"shins": 13
+}

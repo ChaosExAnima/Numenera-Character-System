@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 var express = require('express'),
-	flash = require('connect-flash'),
 	assetmanager = require('assetmanager'),
 	config = require('./config');
 
@@ -41,7 +40,7 @@ module.exports = function(app, db) {
 	app.use(stylus.middleware({
 		src: config.root + '/app',
 		dest: config.root + '/public',
-		compress: true,
+		compress: false,
 		compile: function(str, path) {
 			return stylus(str)
 				.set('filename', path)
@@ -94,9 +93,6 @@ module.exports = function(app, db) {
 			});
 			next();
 		});
-
-		// Connect flash for flash messages
-		app.use(flash());
 
 		// Routes should be at the last
 		app.use(app.router);

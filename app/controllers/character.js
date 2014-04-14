@@ -25,7 +25,36 @@ exports.detail = function(req, res) {
 };
 
 exports.respond = function(socket) {
-	socket.on('character:patch', function(data, callback) {
+	// Initial read.
+	socket.on('character:read', function(data) {
+		var name = data.id;
+		delete data.id;
+
+		Character.findByName(name, function(err, character) {
+			if(err) {
+				console.error('ERROR:', err);
+				return;
+			}
+
+			character = character.toObject();			
+			console.log('Returning', character.name, 'state');
+
+			var pad = function(str) {
+				str = str.toString();
+				return str.length < 2 ? '0'+str : str;
+			};
+
+			character.experience.log.forEach(function(item, key) {
+				var date = new Date(item.date);
+				character.experience.log[key].date = date.getFullYear()+'-'+pad(date.getMonth())+'-'+pad(date.getDate());
+			});
+
+			socket.emit('character/'+name+':read', character);
+		});
+	});
+
+	// Updates.
+	socket.on('character:patch', function(data) {
 		var name = data.id;
 		delete data.id;
 
@@ -38,21 +67,6 @@ exports.respond = function(socket) {
 			console.log('Updated', character.name, 'with', data);
 
 			socket.broadcast.emit('character/'+name+':update', data);
-		});
-	});
-
-	socket.on('character:read', function(data, callback) {
-		var name = data.id;
-		delete data.id;
-
-		Character.findByName(name, function(err, character) {
-			if(err) {
-				console.error('ERROR:', err);
-				return;
-			}
-			
-			console.log('Returning', character.name, 'state');
-			socket.emit('character/'+name+':read', character);
 		});
 	});
 };

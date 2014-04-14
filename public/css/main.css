@@ -219,8 +219,13 @@ body {
 }
 .page-1 .descriptor,
 .page-1 .type {
-  width: 50%;
   float: left;
+}
+.page-1 .descriptor {
+  width: 70%;
+}
+.page-1 .type {
+  width: 30%;
 }
 .page-1 fieldset.portrait {
   -webkit-background-size: 100% auto;
@@ -781,9 +786,9 @@ body {
 .check-box input:checked + label::before {
   background-color: #0000c8;
 }
-#portrait-modal label {
+.container .modal label {
   display: block;
 }
-#portrait-modal input {
+.container .modal input {
   width: 100%;
 }

@@ -4,23 +4,12 @@
  * ephraim@ephraimgregor.com
  */
 
+'use strict';
+
 /**
  * GLOBAL VARIABLES
  */
-
-// usage: console.log('inside coolFunc',this,arguments);
-// http://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
-window.log = function() {
-	log.history = log.history || [];	 // store logs to an array for reference
-	log.history.push(arguments);
-	if( this.console ) {
-		console.log( Array.prototype.slice.call(arguments) );
-	}
-};
-
 window.socket = io.connect(window.location.hostname);
-
-
 
 var app = {};
 
@@ -36,7 +25,7 @@ $( function() {
 
 		character: function(name, page) {
 			this.name = name;
-			this.page = page != null ? page : 1;
+			this.page = page !== null ? page : 1;
 			this.model = new Character();
 			this.bodyView = new CharacterView();
 			this.headerView = new HeaderView();
@@ -64,48 +53,32 @@ $( function() {
 			this.sync('read', this);
 		},
 
-		validate: function(attributes, options) {
-			var error = [];
-
-			_.each(attributes, function(val, key) {
-				if( /^experience\.log\.\d\.date$/.test(key) ) {
-					if( !val || val.trim() === '' ) {
-						return;
-					} else if( !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(val) ) {
-						error.push('Invalid date format: '+val);
-					}
-				}
-			});
-
-			if(error.length > 0) {
-				console.log(error);
-				return error;
-			}
-		},
-
 		serverRead: function(data) {
 			var result = {},
 				recurse = function(cur, prop) {
 				if (Object(cur) !== cur) {
 					result[prop] = cur;
 				} else if (Array.isArray(cur)) {
-					 for(var i=0, l=cur.length; i<l; i++)
-						 recurse(cur[i], prop + "." + i);
-					if (l == 0)
+					for(var i=0, l=cur.length; i<l; i++) {
+						recurse(cur[i], prop + '.' + i);
+					}
+					if (l === 0) {
 						result[prop] = [];
+					}
 				} else {
 					var isEmpty = true;
 					for (var p in cur) {
 						isEmpty = false;
-						recurse(cur[p], prop ? prop+"."+p : p);
+						recurse(cur[p], prop ? prop + '.' + p : p);
 					}
-					if (isEmpty && prop)
+					if (isEmpty && prop) {
 						result[prop] = {};
+					}
 				}
-			}
-			recurse(data, "");
+			};
+			recurse(data, '');
 
-			console.log("Read:", result);
+			console.log('Read:', result);
 
 			this.set(result);
 
@@ -118,7 +91,7 @@ $( function() {
 			this.set(data);
 		},
 
-		serverDelete: function(data) {
+		serverDelete: function() {
 			this.trigger('remove', this);
 			this.modelCleanup();
 		},
@@ -164,19 +137,19 @@ $( function() {
 			// Portrait
 			app.model.on('change:portrait', this.onPortraitChange, this);
 
+			var i = 0;
+
 			// Skills
 			var skillCount = this.$('.skills li').length;
 			for(i = 0; i < skillCount; i++) {
 				app.model.on('change:skills.'+i+'.name', this.onSkillChange, this);
 			}
 
-			// Cypher Limit
+			// Cypher Limit Coloring
 			app.model.on('change:cypherLimit', this.onCypherLimitChange, this);
-
-			// Experience Log
-			var experienceLogCount = this.$('.experience li').length;
-			for(i = 0; i < experienceLogCount; i++) {
-				app.model.on('change:experience.log.'+i+'.date', this.onExperienceDateChange, this);
+			var cypherCount = this.$('.cyphers li').length;
+			for(i = 0; i < cypherCount; i++) {
+				app.model.on('change:cyphers.'+i, this.onCypherLimitChange, this);
 			}
 		},
 
@@ -198,11 +171,11 @@ $( function() {
 			this.save(name, val);
 		},
 
-		showPortrait: function(event) {
+		showPortrait: function() {
 			this.$('#portrait-modal').modal();
 		},
 
-		savePortrait: function(event) {
+		savePortrait: function() {
 			var url = this.$('#portrait').val();
 			this.save('portrait', url);
 
@@ -219,7 +192,14 @@ $( function() {
 		},
 
 		onSkillChange: function(data, text) {
-			var attrs = data.attributes,
+			// Create an array of the valid values.
+			var skillsCount = this.$('.skills li').length,
+				valid = [];
+			for(var i = 0; i < skillsCount; i++) {
+				valid.push('skills.log.'+i+'.date');
+			}
+
+			var attrs = _.pick(data.attributes, valid),
 				name = _.invert(attrs)[text];
 
 			if(typeof name !== 'string') {
@@ -240,39 +220,32 @@ $( function() {
 				$radio.each(function() {
 					$(this).prop('disabled', false);
 				});
-			}		
+			}
 		},
 
 		onCypherLimitChange: function(data) {
 			var limit = data.attributes.cypherLimit,
 				$inputs = this.$('.cyphers li input');
 
+			console.log('Cyphers:', data.attributes);
+
 			$inputs.removeClass('extra');
+
+			for( var i = 0; i < $inputs.length; i++ ) {
+				var text = data.attributes['cyphers.'+i];
+				if( text && text.charAt(0) === ' ' ) {
+					limit++;
+				}
+			}
+			
 			$inputs.slice(limit).addClass('extra');
-		},
-
-		onExperienceDateChange: function(data, text) {
-			var attrs = data.attributes,
-				name = _.invert(attrs)[text];
-
-			if(typeof name !== 'string') {
-				return;
-			}
-
-			if( !attrs[name] ) {
-				attrs[name] = '';
-				return;
-			}
-
-			var date = new Date(attrs[name]);
-			attrs[name] = date.toLocaleDateString('en-US', { timeZone: 'America/New_York' });
 		},
 
 		// UTILITY FUNCTIONS
 
 		save: function(name, val) {
 			console.log(name, 'changed:', val);
-			app.model.save(name, val, { patch: true, validation: true });
+			app.model.save(name, val, { patch: true });
 		},
 
 		changePage: function() {

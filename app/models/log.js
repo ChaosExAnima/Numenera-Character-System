@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Log Model
  * Track user changes to character sheets.
@@ -16,14 +17,13 @@ var LogSchema = new Schema({
 
 LogSchema.statics = {
 	createEscaped: function(data, callback) {
-		var lo = require('lodash'),
-			clean = {};
 
-		lo.each(data.changes, function(val, key) {
+		// Escapes change keys.
+		var clean = {};
+		data.changes.forEach(function(val, key) {
 			var newKey = key.split('.').join('-');
 			clean[newKey] = val;
 		});
-
 		data.changes = clean;
 
 		this.create(data, callback);
